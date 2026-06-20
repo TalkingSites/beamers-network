@@ -133,6 +133,8 @@ h1, h2, h3, .display-font {
 a { color: var(--gold); text-decoration: none; }
 a:hover { color: var(--gold); opacity: 0.82; }
 
+p strong, li strong { color: inherit; font-weight: 600; text-decoration: underline; text-decoration-color: var(--gold-border); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+
 /* --- Starfield canvas --- */
 #starfield {
   position: absolute;
@@ -490,6 +492,9 @@ section { position: relative; z-index: 1; }
 .problem-side--wizard {
   background: linear-gradient(135deg, rgba(45,31,94,0.45) 0%, rgba(45,31,94,0.08) 100%);
 }
+[data-theme="light"] .problem-side--wizard {
+  background: linear-gradient(135deg, rgba(45,31,94,0.07) 0%, rgba(45,31,94,0.02) 100%);
+}
 
 .problem-side--wand {
   background: linear-gradient(225deg, rgba(245,200,66,0.09) 0%, rgba(245,200,66,0.01) 100%);
@@ -560,6 +565,12 @@ section { position: relative; z-index: 1; }
   color: var(--gold);
   font-size: 1.2rem;
   line-height: 1.4;
+}
+
+.problem-cta-text {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.25rem;
 }
 
 @media (max-width: 767px) {
@@ -692,7 +703,7 @@ section { position: relative; z-index: 1; }
   border-radius: 10px;
   padding: 0.75rem 1rem;
   font-size: 0.88rem;
-  color: var(--text-primary);
+  color: #F0EEE9;
 }
 .retainer-pill .pill-icon {
   font-size: 1.1rem;
