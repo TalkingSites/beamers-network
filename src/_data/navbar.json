@@ -1,17 +1,5 @@
 [
-  {
-    "title": "Home",
-    "href": "/",
-    "footer": true
-  },
-  {
-    "title": "About",
-    "href": "/about",
-    "footer": true
-  },
-  {
-    "title": "Contact",
-    "href": "/contact",
-    "footer": true
-  }
+  { "title": "Home", "href": "/", "footer": true },
+  { "title": "How it works", "href": "#how-it-works", "footer": true },
+  { "title": "Apply", "href": "#apply", "footer": false }
 ]
