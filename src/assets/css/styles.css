@@ -951,6 +951,17 @@ section { position: relative; z-index: 1; }
 }
 #footer-main .nav-link:hover { color: var(--gold); }
 
+.footer-github {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+.footer-github:hover { color: var(--gold); }
+
 /* --- Divider --- */
 .section-divider {
   border: none;

@@ -1,21 +1,18 @@
 <footer id="footer-main">
   <div class="container">
     <div class="row align-items-center justify-content-between gap-4">
-      <div class="col-auto">
+      <div class="col-auto d-flex flex-column gap-1">
         <div class="footer-logo-name">Beamers Network</div>
-        <div class="footer-tagline">You already know the spells.</div>
+        <a href="https://github.com/TalkingSites/beamers-network" class="footer-github" target="_blank" rel="noopener noreferrer">
+          <i class="bi bi-github" aria-hidden="true"></i> TalkingSites/beamers-network
+        </a>
       </div>
-      <div class="col-auto d-flex gap-4 flex-wrap">
+      <div class="col-auto d-flex gap-4 flex-wrap justify-content-end">
         {% for item in navbar %}
           {% if item.footer %}
           <a href="{{ item.href }}" class="nav-link">{{ item.title }}</a>
           {% endif %}
         {% endfor %}
-      </div>
-      <div class="col-12 col-md-auto">
-        <div class="footer-copy">
-          &copy; {{ global.currentYear }} Beamers Network. All rights reserved.
-        </div>
       </div>
     </div>
   </div>
