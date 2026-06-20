@@ -472,25 +472,61 @@ section { position: relative; z-index: 1; }
   border-bottom: 1px solid var(--border);
 }
 
-.problem-card {
-  background: var(--bg-card);
+.problem-split {
+  display: flex;
+  align-items: stretch;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 2.2rem 2rem;
-  height: 100%;
-  transition: border-color var(--transition), box-shadow var(--transition);
-}
-.problem-card:hover {
-  border-color: var(--border-gold);
-  box-shadow: var(--shadow-card);
+  overflow: hidden;
 }
 
-.problem-card-icon {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
+.problem-side {
+  flex: 1;
+  padding: 3rem 2.5rem;
+  position: relative;
+  overflow: hidden;
 }
 
-.problem-card h3 {
+.problem-side--wizard {
+  background: linear-gradient(135deg, rgba(45,31,94,0.45) 0%, rgba(45,31,94,0.08) 100%);
+}
+
+.problem-side--wand {
+  background: linear-gradient(225deg, rgba(245,200,66,0.09) 0%, rgba(245,200,66,0.01) 100%);
+}
+
+.problem-rift {
+  width: 1px;
+  flex-shrink: 0;
+  background: linear-gradient(to bottom, transparent 0%, var(--gold) 20%, var(--gold) 80%, transparent 100%);
+  opacity: 0.35;
+}
+
+.problem-index {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.8rem;
+  font-family: 'Cinzel', serif;
+  font-size: 6rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--gold);
+  opacity: 0.06;
+  pointer-events: none;
+  user-select: none;
+}
+
+.problem-side-icon {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.8rem;
+  font-size: 2rem;
+  opacity: 0.5;
+  pointer-events: none;
+  user-select: none;
+}
+
+.problem-side h3 {
   font-family: 'Cinzel', serif;
   font-size: 1.1rem;
   font-weight: 600;
@@ -498,32 +534,42 @@ section { position: relative; z-index: 1; }
   margin-bottom: 0.75rem;
 }
 
-.problem-card p {
+.problem-side p {
   font-size: 0.95rem;
   color: var(--text-secondary);
   line-height: 1.7;
   margin: 0;
 }
 
-.problem-card ul {
+.problem-side ul {
   list-style: none;
   padding: 0;
   margin: 0.75rem 0 0;
 }
-.problem-card ul li {
+.problem-side ul li {
   font-size: 0.92rem;
   color: var(--text-secondary);
   padding: 0.3rem 0;
   padding-left: 1.2rem;
   position: relative;
 }
-.problem-card ul li::before {
+.problem-side ul li::before {
   content: '·';
   position: absolute;
   left: 0;
   color: var(--gold);
   font-size: 1.2rem;
   line-height: 1.4;
+}
+
+@media (max-width: 767px) {
+  .problem-split { flex-direction: column; }
+  .problem-rift {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent 0%, var(--gold) 20%, var(--gold) 80%, transparent 100%);
+  }
+  .problem-index { font-size: 4.5rem; }
 }
 
 /* --- How it works section --- */
