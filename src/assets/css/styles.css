@@ -350,7 +350,7 @@ section { position: relative; z-index: 1; }
 
 #wand-3d {
   width: 100%;
-  max-width: 420px;
+  max-width: 520px;
 }
 
 #wand-3d canvas {

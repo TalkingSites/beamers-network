@@ -4,7 +4,7 @@ const container = document.getElementById('wand-3d');
 if (container) initWand3D(container);
 
 function initWand3D(container) {
-  const W = 420, H = 460;
+  const W = 520, H = 700;
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setSize(W, H);
@@ -14,8 +14,8 @@ function initWand3D(container) {
   container.appendChild(renderer.domElement);
 
   const scene  = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(40, W / H, 0.1, 50);
-  camera.position.set(0, 0, 9);
+  const camera = new THREE.PerspectiveCamera(50, W / H, 0.1, 50);
+  camera.position.set(0, 0, 8);
 
   scene.add(new THREE.AmbientLight(0x1A1040, 0.8));
   const key = new THREE.DirectionalLight(0xF8E090, 2.4);
@@ -47,11 +47,12 @@ function initWand3D(container) {
 
   /* Pivot group: the "wrist" — wand rotates around this point */
   const pivotGroup = new THREE.Group();
+  pivotGroup.position.y = -1.5;
   scene.add(pivotGroup);
 
   /* Wand shifted up inside pivot so the handle sits near the pivot center */
   const wand = new THREE.Group();
-  wand.position.y = 1.2;
+  wand.position.y = 2.2;
   pivotGroup.add(wand);
 
   const body = new THREE.Mesh(
@@ -178,7 +179,7 @@ function initWand3D(container) {
   const FLOURISH_END = 0.72;  // oval completes at 2.52 s
   const TAP_PEAK     = 0.79;  // snap fully extended at 2.77 s
   const TAP_END      = 0.93;  // settled back at 3.26 s
-  const SWING_Z      = 0.55;  // oval left-right amplitude (radians)
+  const SWING_Z      = 0.30;  // oval left-right amplitude (radians)
   const SWING_X      = 0.30;  // oval forward-back amplitude (radians)
 
   let elapsed      = 0;
@@ -204,6 +205,7 @@ function initWand3D(container) {
 
     let rz = 0;
     let rx = 0;
+    let px = 0;
 
     if (t <= FLOURISH_END) {
       /* Oval flourish: tip traces an ellipse, handle stays at bottom */
@@ -212,15 +214,17 @@ function initWand3D(container) {
       rz = SWING_Z * Math.sin(angle);
       rx = SWING_X * Math.cos(angle);
     } else if (t <= TAP_PEAK) {
-      /* Snap left: tip swings left while handle stays put */
+      /* Snap: tip swings left, handle nudges right */
       const f = smoothstep((t - FLOURISH_END) / (TAP_PEAK - FLOURISH_END));
-      rz =  f * 0.45;
+      rz =  f * 0.32;
       rx = SWING_X * (1 - f);
+      px =  f * 0.22;
     } else if (t <= TAP_END) {
       /* Snap back: rebound to rest */
       const f = smoothstep((t - TAP_PEAK) / (TAP_END - TAP_PEAK));
-      rz = (1 - f) * 0.45;
+      rz = (1 - f) * 0.32;
       rx = 0;
+      px = (1 - f) * 0.22;
     } else {
       /* Settle: brief pause before next oval begins */
       rz = 0;
@@ -228,6 +232,8 @@ function initWand3D(container) {
 
     pivotGroup.rotation.z = rz;
     pivotGroup.rotation.x = rx;
+    pivotGroup.position.x = px;
+    pivotGroup.position.y = -1.5 + Math.sin(elapsed * 1.1) * 0.18;
 
     /* Star spins on its own local axis */
     starMesh.rotation.z += dt * 1.0;
