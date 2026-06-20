@@ -1,0 +1,22 @@
+<svg viewBox="0 0 50 195" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- tip glow -->
+  <circle cx="25" cy="20" r="16" fill="#F5C842" opacity="0.08"/>
+  <circle cx="25" cy="20" r="9"  fill="#F5C842" opacity="0.18"/>
+  <!-- star -->
+  <polygon points="25,5 28.5,15 39,15 30.5,21.5 33.5,32 25,26 16.5,32 19.5,21.5 11,15 21.5,15" fill="#F5C842"/>
+  <!-- shaft -->
+  <rect x="22.5" y="33" width="5" height="132" rx="2.5" fill="url(#wandGrad)"/>
+  <!-- handle -->
+  <rect x="21" y="151" width="8" height="22" rx="4" fill="#2D1F5E"/>
+  <!-- handle rings -->
+  <rect x="23" y="155" width="4" height="2" rx="1" fill="#F5C842" opacity="0.55"/>
+  <rect x="23" y="160" width="4" height="2" rx="1" fill="#F5C842" opacity="0.55"/>
+  <rect x="23" y="165" width="4" height="2" rx="1" fill="#F5C842" opacity="0.55"/>
+  <defs>
+    <linearGradient id="wandGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#F5C842"/>
+      <stop offset="55%"  stop-color="#C8A030"/>
+      <stop offset="100%" stop-color="#7A6020"/>
+    </linearGradient>
+  </defs>
+</svg>
