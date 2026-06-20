@@ -231,7 +231,7 @@ section { position: relative; z-index: 1; }
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding: 6rem 0 4rem;
+  padding: 3rem 0 4rem;
   overflow: hidden;
   position: relative;
 }
@@ -342,12 +342,18 @@ section { position: relative; z-index: 1; }
 /* --- Wand scene (Three.js) --- */
 .wand-scene {
   position: absolute;
-  right: 0;
+  right: -60px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 0;
   pointer-events: none;
+  width: 300px;
 }
+
+@media (min-width: 992px) {
+  .wand-scene { width: 420px; right: 0; }
+}
+
 
 #wand-3d {
   width: 100%;
@@ -934,7 +940,7 @@ section { position: relative; z-index: 1; }
 .text-muted-custom { color: var(--text-secondary); }
 
 @media (max-width: 768px) {
-  .hero-section { padding: 5rem 0 3rem; }
+  .hero-section { padding: 2rem 0 3rem; }
   .wand-scene { padding: 2rem 1rem; }
   .howit-visual { position: static; }
   .apply-form-card { padding: 2rem 1.5rem; }

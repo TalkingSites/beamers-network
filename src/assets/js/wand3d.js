@@ -185,6 +185,7 @@ function initWand3D(container) {
   let elapsed      = 0;
   let lastTapCycle = -1;
   let prevTime     = performance.now();
+  let isMobile     = window.innerWidth < 992;
   const tipWorldPos = new THREE.Vector3();
 
   function smoothstep(t) {
@@ -215,14 +216,16 @@ function initWand3D(container) {
       rx = SWING_X * Math.cos(angle);
     } else if (t <= TAP_PEAK) {
       /* Snap: tip swings left, handle nudges right */
+      const tapRz = isMobile ? 0.10 : 0.32;
       const f = smoothstep((t - FLOURISH_END) / (TAP_PEAK - FLOURISH_END));
-      rz =  f * 0.32;
+      rz =  f * tapRz;
       rx = SWING_X * (1 - f);
       px =  f * 0.22;
     } else if (t <= TAP_END) {
       /* Snap back: rebound to rest */
+      const tapRz = isMobile ? 0.10 : 0.32;
       const f = smoothstep((t - TAP_PEAK) / (TAP_END - TAP_PEAK));
-      rz = (1 - f) * 0.32;
+      rz = (1 - f) * tapRz;
       rx = 0;
       px = (1 - f) * 0.22;
     } else {
@@ -254,7 +257,7 @@ function initWand3D(container) {
         : 1 - smoothstep((t - TAP_PEAK) / (TAP_END - TAP_PEAK));
       tipLight.intensity        += (7.0 - tipLight.intensity) * 0.18;
       starMat.emissiveIntensity += (1.6 - starMat.emissiveIntensity) * 0.18;
-      glow.scale.setScalar(1.0 + tapProgress * 1.6);
+      glow.scale.setScalar(1.0 + tapProgress * (isMobile ? 0.5 : 1.6));
     } else {
       tipLight.intensity        += (2.2  - tipLight.intensity) * 0.05;
       starMat.emissiveIntensity += (0.38 - starMat.emissiveIntensity) * 0.04;
@@ -288,8 +291,12 @@ function initWand3D(container) {
   loop();
 
   function onResize() {
-    const w = Math.min(container.offsetWidth || W, W);
-    const h = Math.round(w * H / W);
+    const mobile = window.innerWidth < 992;
+    isMobile = mobile;
+    const w = mobile
+      ? Math.min(container.offsetWidth || 300, 300)
+      : Math.min(container.offsetWidth || W, W);
+    const h = mobile ? Math.round(w * 2.2) : Math.round(w * H / W);
     renderer.setSize(w, h);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
