@@ -267,6 +267,7 @@ function initWand3D(container) {
     if (Math.abs(t - TAP_PEAK) < 0.018 && cyc !== lastTapCycle) {
       lastTapCycle = cyc;
       spawnParticles(tipWorldPos.clone());
+      window.dispatchEvent(new CustomEvent('wand-tap'));
     }
 
     /* Particle update */

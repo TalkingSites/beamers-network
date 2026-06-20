@@ -19,8 +19,9 @@ function initStarfield() {
   const ctx = canvas.getContext('2d');
 
   function resize() {
-    canvas.width  = window.innerWidth;
-    canvas.height = window.innerHeight;
+    const hero = canvas.parentElement;
+    canvas.width  = hero ? hero.offsetWidth  : window.innerWidth;
+    canvas.height = hero ? hero.offsetHeight : window.innerHeight;
   }
   resize();
   window.addEventListener('resize', resize);
@@ -412,9 +413,21 @@ function initSmoothScroll() {
   });
 }
 
+/* ─── Wand tap headline light-up ─────────────────────────── */
+function initWandTapEffect() {
+  const headline = document.querySelector('.hero-headline');
+  if (!headline) return;
+  window.addEventListener('wand-tap', function () {
+    headline.classList.remove('wand-lit');
+    void headline.offsetWidth;
+    headline.classList.add('wand-lit');
+  });
+}
+
 document.addEventListener('DOMContentLoaded', function () {
   initThemeToggle();
   initStarfield();
   initWishCycle();
   initSmoothScroll();
+  initWandTapEffect();
 });
