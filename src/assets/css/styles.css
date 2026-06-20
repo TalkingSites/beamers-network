@@ -233,6 +233,7 @@ section { position: relative; z-index: 1; }
   align-items: center;
   padding: 6rem 0 4rem;
   overflow: hidden;
+  position: relative;
 }
 
 .hero-section::before {
@@ -340,12 +341,12 @@ section { position: relative; z-index: 1; }
 
 /* --- Wand scene (Three.js) --- */
 .wand-scene {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  padding: 0.5rem 0 1rem;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 0;
+  pointer-events: none;
 }
 
 #wand-3d {
