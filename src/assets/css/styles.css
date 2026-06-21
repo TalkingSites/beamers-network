@@ -1034,6 +1034,17 @@ section { position: relative; z-index: 1; }
     radial-gradient(ellipse 80% 60% at 50% 50%, rgba(45, 31, 94, 0.06) 0%, transparent 70%);
 }
 
+/* Standards + Apply sections keep dark starfield backgrounds in both modes — force light text */
+[data-theme="light"] .standards-section .section-headline,
+[data-theme="light"] .apply-section .section-headline { color: #F0EEE9; }
+[data-theme="light"] .standards-section .section-sub,
+[data-theme="light"] .apply-section .section-sub { color: #9AA3C0; }
+[data-theme="light"] .standards-section .standard-heading { color: #F0EEE9; }
+[data-theme="light"] .standards-section .standard-item p { color: #9AA3C0; }
+[data-theme="light"] .standards-section .standard-item { border-bottom-color: rgba(255,255,255,0.1); }
+[data-theme="light"] .standards-section .standard-item:first-child { border-top-color: rgba(255,255,255,0.1); }
+[data-theme="light"] .standards-cta-label { color: #9AA3C0; }
+
 /* Step 2 — richer purple when the form is revealed */
 #apply-form::before {
   background:
@@ -1065,10 +1076,10 @@ section { position: relative; z-index: 1; }
 .apply-form-card textarea {
   width: 100%;
   background: transparent !important;
-  border: none;
-  border-bottom: 1.5px solid var(--gold);
+  border: none !important;
+  border-bottom: 2px solid #9B6E00 !important;
   border-radius: 0;
-  color: var(--gold);
+  color: #7B5200 !important;
   padding: 0.45rem 0;
   font-family: 'Inter', sans-serif;
   font-size: 0.93rem;
@@ -1082,12 +1093,12 @@ section { position: relative; z-index: 1; }
 .apply-form-card input:focus,
 .apply-form-card select:focus,
 .apply-form-card textarea:focus {
-  border-bottom-color: var(--gold);
-  box-shadow: 0 2px 0 -1px var(--gold-glow);
+  border-bottom-color: #7B5200 !important;
+  box-shadow: 0 2px 0 -1px rgba(123, 82, 0, 0.25);
 }
 .apply-form-card input::placeholder,
 .apply-form-card textarea::placeholder {
-  color: rgba(45, 26, 10, 0.35);
+  color: rgba(107, 68, 0, 0.38) !important;
 }
 .apply-form-card select {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23784d30' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
