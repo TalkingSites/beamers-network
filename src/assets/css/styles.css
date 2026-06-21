@@ -1046,9 +1046,10 @@ section { position: relative; z-index: 1; }
   background: url('/assets/images/scroll.svg') no-repeat center / 100% 100%;
   border: none;
   border-radius: 0;
-  padding: 7rem 5rem 8rem 11rem;
+  padding: 7rem 6rem 15rem;
   max-width: 680px;
   margin: 0 auto;
+  color-scheme: light;
 }
 
 .apply-form-card label {
@@ -1063,26 +1064,38 @@ section { position: relative; z-index: 1; }
 .apply-form-card select,
 .apply-form-card textarea {
   width: 100%;
-  background: rgba(255, 245, 220, 0.65);
-  border: 1px solid rgba(158, 103, 60, 0.4);
-  border-radius: 9px;
+  background: transparent !important;
+  border: none;
+  border-bottom: 1.5px solid rgba(120, 77, 48, 0.4);
+  border-radius: 0;
   color: #2d1a0a;
-  padding: 0.7rem 1rem;
+  padding: 0.45rem 0;
   font-family: 'Inter', sans-serif;
   font-size: 0.93rem;
-  transition: border-color var(--transition), box-shadow var(--transition);
+  transition: border-color var(--transition);
   outline: none;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.4rem;
+  -webkit-appearance: none;
+  appearance: none;
+  box-shadow: none;
 }
 .apply-form-card input:focus,
 .apply-form-card select:focus,
 .apply-form-card textarea:focus {
-  border-color: rgba(158, 103, 60, 0.85);
-  box-shadow: 0 0 0 3px rgba(158, 103, 60, 0.15);
+  border-bottom-color: #784d30;
+  box-shadow: none;
 }
 .apply-form-card input::placeholder,
 .apply-form-card textarea::placeholder {
-  color: rgba(45, 26, 10, 0.4);
+  color: rgba(45, 26, 10, 0.35);
+}
+.apply-form-card select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23784d30' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 2px center !important;
+  background-size: 12px 8px !important;
+  padding-right: 20px;
+  cursor: pointer;
 }
 .apply-form-card select option {
   background: #ffecd0;
@@ -1095,7 +1108,7 @@ section { position: relative; z-index: 1; }
 
 .apply-form-card textarea {
   resize: vertical;
-  min-height: 100px;
+  min-height: 80px;
 }
 
 /* --- Footer --- */
@@ -1182,7 +1195,7 @@ section { position: relative; z-index: 1; }
   .hero-section { padding: 1.5rem 0 3rem; min-height: auto; align-items: flex-start; }
   .wand-scene { padding: 2rem 1rem; }
   .howit-visual { position: static; }
-  .apply-form-card { padding: 4.5rem 2.5rem 5rem; }
+  .apply-form-card { padding: 4rem 3rem 10rem; }
   .deal-card { padding: 2rem 1.5rem; }
   .perk-unlock { padding: 1.75rem 1.5rem; }
 }
