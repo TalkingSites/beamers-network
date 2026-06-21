@@ -68,16 +68,12 @@ permalink: "/apply/"
     <div class="standards-cta text-center">
       <p class="standards-cta-label">Does this resonate?</p>
       <a href="/eoi/" class="btn-gold">Submit an Expression of Interest</a>
-      <div class="standards-apply-nudge">
-        <p>Already sure this is for you?</p>
-        <button class="btn-ghost" onclick="showApplyForm()">Apply now</button>
-      </div>
     </div>
   </div>
 </section>
 
 <!-- ===================== APPLICATION FORM ===================== -->
-<section class="apply-section" id="apply-form" hidden>
+<section class="apply-section" id="apply-form">
   <div class="container">
     <div class="text-center mb-5">
       <h2 class="section-headline">Tell us about yourself.</h2>
@@ -118,7 +114,7 @@ permalink: "/apply/"
           Submit application
         </button>
 
-        <p style="font-size:0.8rem; color:var(--text-muted); text-align:center; margin-top:1rem; margin-bottom:0;">
+        <p class="apply-note" style="font-size:0.8rem; text-align:center; margin-top:1rem; margin-bottom:0;">
           We will get back to you via email. No spam, ever.
         </p>
 
@@ -127,12 +123,3 @@ permalink: "/apply/"
   </div>
 </section>
 
-<script>
-function showApplyForm() {
-  var section = document.getElementById('apply-form');
-  section.removeAttribute('hidden');
-  setTimeout(function() {
-    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 50);
-}
-</script>
