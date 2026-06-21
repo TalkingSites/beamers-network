@@ -44,40 +44,6 @@
   --bs-nav-link-hover-color: var(--gold);
 }
 
-[data-theme="light"] {
-  --bg-base:        #F5F3EE;
-  --bg-surface:     #FDFCF9;
-  --bg-card:        #FFFFFF;
-  --bg-card-hover:  #F9F7F2;
-  --gold:           #B8860B;
-  --gold-dim:       rgba(184, 134, 11, 0.08);
-  --gold-glow:      rgba(184, 134, 11, 0.18);
-  --gold-border:    rgba(184, 134, 11, 0.25);
-  --purple:         #2D1F5E;
-  --purple-mid:     #3D2B7A;
-  --text-primary:   #0B0F1A;
-  --text-secondary: #4A5068;
-  --text-muted:     #9AA3C0;
-  --border:         rgba(0,0,0,0.08);
-  --border-gold:    rgba(184, 134, 11, 0.3);
-  --shadow-card:    0 4px 24px rgba(0,0,0,0.07);
-  --shadow-gold:    0 0 32px rgba(184, 134, 11, 0.08);
-
-  --bs-body-bg:              var(--bg-base);
-  --bs-body-color:           var(--text-primary);
-  --bs-primary:              var(--gold);
-  --bs-secondary-bg:         var(--bg-surface);
-  --bs-tertiary-bg:          var(--bg-card);
-  --bs-emphasis-color:       var(--text-primary);
-  --bs-secondary-color:      var(--text-secondary);
-  --bs-border-color:         var(--border);
-  --bs-border-color-translucent: var(--border);
-  --bs-form-control-bg:      var(--bg-base);
-  --bs-form-control-color:   var(--text-primary);
-  --bs-card-bg:              var(--bg-card);
-  --bs-card-border-color:    var(--border);
-}
-
 /* --- Base --- */
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -156,9 +122,6 @@ p strong, li strong { color: inherit; font-weight: 600; text-decoration: underli
   border-bottom: 1px solid var(--border);
   transition: background 0.3s ease, border-color 0.3s ease;
 }
-[data-theme="light"] #navbar-main {
-  background: rgba(245, 243, 238, 0.9);
-}
 
 .navbar-brand-name {
   font-family: 'Cinzel', serif;
@@ -198,30 +161,6 @@ p strong, li strong { color: inherit; font-weight: 600; text-decoration: underli
   color: #0B0F1A !important;
 }
 
-.theme-toggle {
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--text-secondary);
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: border-color var(--transition), color var(--transition), background var(--transition);
-  font-size: 0.95rem;
-}
-.theme-toggle:hover {
-  border-color: var(--gold-border);
-  color: var(--gold);
-  background: var(--gold-dim);
-}
-.theme-toggle .icon-moon { display: block; }
-.theme-toggle .icon-sun  { display: none; }
-[data-theme="light"] .theme-toggle .icon-moon { display: none; }
-[data-theme="light"] .theme-toggle .icon-sun  { display: block; }
-
 /* --- Sections --- */
 section { position: relative; z-index: 1; }
 
@@ -248,11 +187,6 @@ section { position: relative; z-index: 1; }
 }
 
 /* Force hero content to always read as dark-theme regardless of page theme */
-[data-theme="light"] .hero-section .hero-headline { color: #F0EEE9; }
-[data-theme="light"] .hero-section .hero-subtext  { color: #9AA3C0; }
-[data-theme="light"] .hero-section .hero-badge    { color: #F5C842; background: rgba(245,200,66,0.12); border-color: rgba(245,200,66,0.22); }
-[data-theme="light"] .hero-section .btn-ghost     { color: #9AA3C0; border-color: rgba(255,255,255,0.15); }
-[data-theme="light"] .hero-section .btn-ghost:hover { color: #F0EEE9; border-color: rgba(245,200,66,0.3); background: rgba(245,200,66,0.12); }
 
 .hero-section .container { position: relative; z-index: 1; }
 
@@ -379,7 +313,6 @@ section { position: relative; z-index: 1; }
   .wand-scene { width: 420px; right: 0; }
 }
 
-
 #wand-3d {
   width: 100%;
   max-width: 520px;
@@ -490,9 +423,6 @@ section { position: relative; z-index: 1; }
 
 .problem-side--wizard {
   background: linear-gradient(135deg, rgba(45,31,94,0.45) 0%, rgba(45,31,94,0.08) 100%);
-}
-[data-theme="light"] .problem-side--wizard {
-  background: linear-gradient(135deg, rgba(45,31,94,0.07) 0%, rgba(45,31,94,0.02) 100%);
 }
 
 .problem-side--wand {
@@ -1029,21 +959,6 @@ section { position: relative; z-index: 1; }
     radial-gradient(ellipse 80% 60% at 50% 50%, rgba(45, 31, 94, 0.6) 0%, transparent 70%);
   pointer-events: none;
 }
-[data-theme="light"] .apply-section::before {
-  background:
-    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(45, 31, 94, 0.06) 0%, transparent 70%);
-}
-
-/* Standards + Apply sections keep dark starfield backgrounds in both modes — force light text */
-[data-theme="light"] .standards-section .section-headline,
-[data-theme="light"] .apply-section .section-headline { color: #F0EEE9; }
-[data-theme="light"] .standards-section .section-sub,
-[data-theme="light"] .apply-section .section-sub { color: #9AA3C0; }
-[data-theme="light"] .standards-section .standard-heading { color: #F0EEE9; }
-[data-theme="light"] .standards-section .standard-item p { color: #9AA3C0; }
-[data-theme="light"] .standards-section .standard-item { border-bottom-color: rgba(255,255,255,0.1); }
-[data-theme="light"] .standards-section .standard-item:first-child { border-top-color: rgba(255,255,255,0.1); }
-[data-theme="light"] .standards-cta-label { color: #9AA3C0; }
 
 /* Step 2 — richer purple when the form is revealed */
 #apply-form::before {
@@ -1196,7 +1111,6 @@ section { position: relative; z-index: 1; }
   width: 100%;
   height: 100%;
 }
-
 
 /* --- Utility --- */
 .text-gold { color: var(--gold); }
