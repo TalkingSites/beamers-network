@@ -470,7 +470,6 @@ section { position: relative; z-index: 1; }
 .problem-section {
   padding: 6rem 0;
   background: var(--bg-surface);
-  border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
 
@@ -1025,6 +1024,32 @@ section { position: relative; z-index: 1; }
   border-top: 1px solid var(--border);
   margin: 0;
 }
+
+.hero-divider {
+  background: var(--bg-surface);
+  position: relative;
+  height: 80px;
+  overflow: hidden;
+  line-height: 0;
+}
+
+/* Top half stays dark (hero sky continues), bottom half is the next section colour */
+.hero-divider::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 50%;
+  background: #0B0F1A;
+}
+
+.hero-divider-field {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
 
 /* --- Utility --- */
 .text-gold { color: var(--gold); }
