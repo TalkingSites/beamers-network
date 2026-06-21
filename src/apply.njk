@@ -5,13 +5,84 @@ description: Apply to join Beamers Network as a verified Wizard.
 permalink: "/apply/"
 ---
 
-<section class="apply-section" style="padding-top: 5rem; padding-bottom: 5rem;">
+<!-- Fixed starfield behind all sections -->
+<div class="page-starfield" aria-hidden="true">
+  <canvas id="starfield"></canvas>
+</div>
+
+<!-- ===================== BEAMERS STANDARD ===================== -->
+<section class="standards-section">
   <div class="container">
     <div class="text-center mb-5">
-      <h2 class="section-headline">Become a Beamer Wizard.</h2>
+      <h2 class="section-headline">The Beamers Standard</h2>
       <p class="section-sub mx-auto">
-        Tell us a bit about yourself. We review every application personally during the
-        founding period.
+        These aren't rules. They're the reason Beamers exists.
+        Before you apply, make sure this resonates.
+      </p>
+    </div>
+
+    <div class="standards-list">
+
+      <div class="standard-item">
+        <div class="standard-item-header">
+          <span class="standard-numeral">I</span>
+          <h3 class="standard-heading">The Spell, Not the Wand</h3>
+        </div>
+        <p>AI has given everyone a magic wand. But a wand without spells is just a stick.
+        Beamers are the people who put in years learning the spells: the expertise, the
+        intuition, the muscle memory that turns a prompt into a result. This isn't traditional
+        tech support, and it isn't a dev agency. It's what AI has made possible:
+        <strong>fast, precise, genuinely useful help delivered through deep knowledge of modern
+        tools.</strong> Everyone has the wand. Beamers know the spells.</p>
+      </div>
+
+      <div class="standard-item">
+        <div class="standard-item-header">
+          <span class="standard-numeral">II</span>
+          <h3 class="standard-heading">Tech Through Education</h3>
+        </div>
+        <p>The only real difference between a tech person and a non-tech person is the time
+        they've spent with the tools. Beamers grant wishes. But a retainer means something
+        more: <strong>the client is willing to learn, and you're willing to teach.</strong>
+        Not just "here's the answer" but "here's how this works." People who think they
+        "just don't get computers" haven't had someone take the time to show them. The goal
+        is a client who understands their tools better after every session, not one who is
+        more dependent on you.</p>
+      </div>
+
+      <div class="standard-item">
+        <div class="standard-item-header">
+          <span class="standard-numeral">III</span>
+          <h3 class="standard-heading">Open Tools, Open Paths</h3>
+        </div>
+        <p>Signing up is easy. Leaving is the trap. Beamers steer clients toward open,
+        interoperable tools: ones with <strong>MCP servers, public repositories, and a
+        genuine commitment to the new era.</strong> If a tool's business model depends on
+        lock-in, or if the company's answer to AI is "AI bad," we find another tool.
+        We have a duty to teach the value of open source and tool independence so clients
+        are never held hostage by a price hike or a platform decision made without them.</p>
+      </div>
+
+    </div>
+
+    <div class="standards-cta text-center">
+      <p class="standards-cta-label">Does this resonate?</p>
+      <a href="/eoi/" class="btn-gold">Submit an Expression of Interest</a>
+      <div class="standards-apply-nudge">
+        <p>Already sure this is for you?</p>
+        <button class="btn-ghost" onclick="showApplyForm()">Apply now</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== APPLICATION FORM ===================== -->
+<section class="apply-section" id="apply-form" hidden>
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="section-headline">Tell us about yourself.</h2>
+      <p class="section-sub mx-auto">
+        We review every application personally during the founding period.
       </p>
     </div>
 
@@ -31,10 +102,10 @@ permalink: "/apply/"
         <label for="apply-connected">How connected are you to your community?</label>
         <select id="apply-connected" name="connected">
           <option value="" disabled selected>Choose the closest fit</option>
-          <option value="very">Very — I'm embedded in multiple communities</option>
-          <option value="somewhat">Somewhat — I'm active in a couple</option>
-          <option value="a-little">A little — I know people but want to be more involved</option>
-          <option value="not-yet">Not yet — but I want to change that</option>
+          <option value="very">Very. I'm embedded in multiple communities</option>
+          <option value="somewhat">Somewhat. I'm active in a couple</option>
+          <option value="a-little">A little. I know people but want to be more involved</option>
+          <option value="not-yet">Not yet, but I want to change that</option>
         </select>
 
         <label for="apply-why">What kind of help do you already give people?</label>
@@ -55,3 +126,13 @@ permalink: "/apply/"
     </div>
   </div>
 </section>
+
+<script>
+function showApplyForm() {
+  var section = document.getElementById('apply-form');
+  section.removeAttribute('hidden');
+  setTimeout(function() {
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 50);
+}
+</script>

@@ -1,0 +1,46 @@
+---
+layout: home-base.njk
+title: Expression of Interest — Beamers Network
+description: Not ready to apply yet? Send us a note and we'll have a chat.
+permalink: "/eoi/"
+---
+
+<section class="apply-section" style="padding-top: 5rem; padding-bottom: 5rem;">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="section-headline">Let's have a chat.</h2>
+      <p class="section-sub mx-auto">
+        Not quite ready to apply, or still figuring out if Beamers is the right fit?
+        Send us a note and we'll reach out for a no-pressure conversation.
+      </p>
+    </div>
+
+    <div class="apply-form-card">
+      <form name="eoi" netlify method="POST" action="/eoi-thanks/">
+        <input type="hidden" name="form-name" value="eoi" />
+
+        <label for="eoi-name">Your name</label>
+        <input type="text" id="eoi-name" name="name" placeholder="Ada Lovelace" required/>
+
+        <label for="eoi-email">Email address</label>
+        <input type="email" id="eoi-email" name="email" placeholder="you@example.com" required/>
+
+        <label for="eoi-message">What's on your mind?</label>
+        <textarea id="eoi-message" name="message" placeholder="Tell us a bit about yourself and what you're curious about..."></textarea>
+
+        <button type="submit" class="btn-gold w-100" style="border:none; cursor:pointer;">
+          Send it through
+        </button>
+
+        <p style="font-size:0.8rem; color:var(--text-muted); text-align:center; margin-top:1rem; margin-bottom:0;">
+          We will get back to you via email. No spam, ever.
+        </p>
+
+      </form>
+    </div>
+
+    <p style="font-size:0.85rem; color:var(--text-muted); text-align:center; margin-top:1.5rem;">
+      Ready to dive in? <a href="/apply/">Apply to become a Wizard.</a>
+    </p>
+  </div>
+</section>
