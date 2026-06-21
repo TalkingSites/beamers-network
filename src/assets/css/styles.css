@@ -1046,7 +1046,7 @@ section { position: relative; z-index: 1; }
   background: url('/assets/images/scroll.svg') no-repeat center / 100% 100%;
   border: none;
   border-radius: 0;
-  padding: 7rem 6rem 15rem;
+  padding: 7rem 7rem 15rem 10rem;
   max-width: 680px;
   margin: 0 auto;
   color-scheme: light;
@@ -1066,13 +1066,13 @@ section { position: relative; z-index: 1; }
   width: 100%;
   background: transparent !important;
   border: none;
-  border-bottom: 1.5px solid rgba(120, 77, 48, 0.4);
+  border-bottom: 1.5px solid var(--gold);
   border-radius: 0;
-  color: #2d1a0a;
+  color: var(--gold);
   padding: 0.45rem 0;
   font-family: 'Inter', sans-serif;
   font-size: 0.93rem;
-  transition: border-color var(--transition);
+  transition: border-color var(--transition), box-shadow var(--transition);
   outline: none;
   margin-bottom: 1.4rem;
   -webkit-appearance: none;
@@ -1082,8 +1082,8 @@ section { position: relative; z-index: 1; }
 .apply-form-card input:focus,
 .apply-form-card select:focus,
 .apply-form-card textarea:focus {
-  border-bottom-color: #784d30;
-  box-shadow: none;
+  border-bottom-color: var(--gold);
+  box-shadow: 0 2px 0 -1px var(--gold-glow);
 }
 .apply-form-card input::placeholder,
 .apply-form-card textarea::placeholder {
@@ -1195,7 +1195,7 @@ section { position: relative; z-index: 1; }
   .hero-section { padding: 1.5rem 0 3rem; min-height: auto; align-items: flex-start; }
   .wand-scene { padding: 2rem 1rem; }
   .howit-visual { position: static; }
-  .apply-form-card { padding: 4rem 3rem 10rem; }
+  .apply-form-card { padding: 4rem 3rem 10rem 5.5rem; }
   .deal-card { padding: 2rem 1.5rem; }
   .perk-unlock { padding: 1.75rem 1.5rem; }
 }
