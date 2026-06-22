@@ -299,30 +299,24 @@ section { position: relative; z-index: 1; }
 }
 
 /* --- Wand scene (Three.js) --- */
-.wand-scene {
+#wand-3d {
   position: absolute;
-  right: -60px;
-  top: 50%;
-  transform: translateY(-50%);
+  inset: 0;
   z-index: 0;
   pointer-events: none;
-  width: 300px;
-}
-
-@media (min-width: 992px) {
-  .wand-scene { width: 420px; right: 0; }
-}
-
-#wand-3d {
-  width: 100%;
-  max-width: 520px;
 }
 
 #wand-3d canvas {
   display: block;
   width: 100% !important;
-  height: auto !important;
-  border-radius: 20px;
+  height: 100% !important;
+}
+
+@media (min-width: 992px) {
+  .hero-section { cursor: grab; }
+  .hero-section.is-dragging { cursor: grabbing; }
+  .hero-section a,
+  .hero-section button { cursor: pointer; }
 }
 
 /* Wish cards */

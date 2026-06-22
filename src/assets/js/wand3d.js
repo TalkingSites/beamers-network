@@ -4,17 +4,17 @@ const container = document.getElementById('wand-3d');
 if (container) initWand3D(container);
 
 function initWand3D(container) {
-  const W = 520, H = 700;
+  const heroSection = container.closest('.hero-section');
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-  renderer.setSize(W, H);
+  renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.35;
   container.appendChild(renderer.domElement);
 
   const scene  = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(50, W / H, 0.1, 50);
+  const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 50);
   camera.position.set(0, 0, 8);
 
   scene.add(new THREE.AmbientLight(0x1A1040, 0.8));
@@ -47,7 +47,6 @@ function initWand3D(container) {
 
   /* Pivot group: the "wrist" — wand rotates around this point */
   const pivotGroup = new THREE.Group();
-  pivotGroup.position.y = -1.5;
   scene.add(pivotGroup);
 
   /* Wand shifted up inside pivot so the handle sits near the pivot center */
@@ -176,17 +175,98 @@ function initWand3D(container) {
 
   /* Animation phases (as fractions of CYCLE) */
   const CYCLE        = 3.5;
-  const FLOURISH_END = 0.72;  // oval completes at 2.52 s
-  const TAP_PEAK     = 0.79;  // snap fully extended at 2.77 s
-  const TAP_END      = 0.93;  // settled back at 3.26 s
-  const SWING_Z      = 0.30;  // oval left-right amplitude (radians)
-  const SWING_X      = 0.30;  // oval forward-back amplitude (radians)
+  const FLOURISH_END = 0.72;
+  const TAP_PEAK     = 0.79;
+  const TAP_END      = 0.93;
+  const SWING_Z      = 0.30;
+  const SWING_X      = 0.30;
 
   let elapsed      = 0;
   let lastTapCycle = -1;
   let prevTime     = performance.now();
   let isMobile     = window.innerWidth < 992;
   const tipWorldPos = new THREE.Vector3();
+
+  /* Wand home position — right side of canvas, proportional to camera frustum */
+  let wandHomeX = 3.0;
+  const WAND_HOME_Y = -1.5;
+
+  function computeWandHomeX() {
+    const halfH = Math.tan((50 / 2) * Math.PI / 180) * 8;
+    return halfH * camera.aspect * 0.58;
+  }
+
+  /* Converts screen pixel delta to world-unit delta at z=0 */
+  function pixelToWorld(screenDX, screenDY) {
+    const halfH = Math.tan((50 / 2) * Math.PI / 180) * 8;
+    const halfW = halfH * camera.aspect;
+    const cw = renderer.domElement.clientWidth  || window.innerWidth;
+    const ch = renderer.domElement.clientHeight || window.innerHeight;
+    return {
+      x:  screenDX * (2 * halfW) / cw,
+      y: -screenDY * (2 * halfH) / ch,
+    };
+  }
+
+  /* Drag state — translates the whole wand in world space */
+  let isDragging = false;
+  let dragX = 0, dragY = 0;
+  let dragPrevClientX = 0, dragPrevClientY = 0;
+  let dragVelX = 0, dragVelY = 0;
+
+  /* Spring-back state */
+  let isSpringBack = false;
+  let springX = 0, springY = 0;
+  let springVelX = 0, springVelY = 0;
+
+  const SPRING_K       = 0.12;
+  const SPRING_DAMPING = 0.78;
+  const SPRING_EPS     = 0.003;
+
+  const eventTarget = heroSection || container;
+
+  function onMouseDown(e) {
+    if (isMobile) return;
+    if (e.target.closest('a, button')) return;
+    isDragging      = true;
+    isSpringBack    = false;
+    dragX           = pivotGroup.position.x;
+    dragY           = pivotGroup.position.y;
+    dragPrevClientX = e.clientX;
+    dragPrevClientY = e.clientY;
+    dragVelX        = 0;
+    dragVelY        = 0;
+    if (heroSection) heroSection.classList.add('is-dragging');
+    e.preventDefault();
+  }
+
+  function onMouseMove(e) {
+    if (!isDragging || isMobile) return;
+    const dx = e.clientX - dragPrevClientX;
+    const dy = e.clientY - dragPrevClientY;
+    dragPrevClientX = e.clientX;
+    dragPrevClientY = e.clientY;
+    const w = pixelToWorld(dx, dy);
+    dragX += w.x;
+    dragY += w.y;
+    dragVelX = dragVelX * 0.7 + w.x * 0.3;
+    dragVelY = dragVelY * 0.7 + w.y * 0.3;
+  }
+
+  function onMouseUp() {
+    if (!isDragging) return;
+    isDragging   = false;
+    isSpringBack = true;
+    springX      = dragX;
+    springY      = dragY;
+    springVelX   = dragVelX;
+    springVelY   = dragVelY;
+    if (heroSection) heroSection.classList.remove('is-dragging');
+  }
+
+  eventTarget.addEventListener('mousedown', onMouseDown);
+  window.addEventListener('mousemove', onMouseMove);
+  window.addEventListener('mouseup', onMouseUp);
 
   function smoothstep(t) {
     t = Math.max(0, Math.min(1, t));
@@ -204,39 +284,57 @@ function initWand3D(container) {
     const t   = (elapsed % CYCLE) / CYCLE;
     const cyc = Math.floor(elapsed / CYCLE);
 
-    let rz = 0;
-    let rx = 0;
-    let px = 0;
+    /* Rotation animation — always runs regardless of drag */
+    let rz = 0, rx = 0, px = 0;
 
     if (t <= FLOURISH_END) {
-      /* Oval flourish: tip traces an ellipse, handle stays at bottom */
       const f     = t / FLOURISH_END;
       const angle = f * Math.PI * 2;
       rz = SWING_Z * Math.sin(angle);
       rx = SWING_X * Math.cos(angle);
     } else if (t <= TAP_PEAK) {
-      /* Snap: tip swings left, handle nudges right */
       const tapRz = isMobile ? 0.10 : 0.32;
       const f = smoothstep((t - FLOURISH_END) / (TAP_PEAK - FLOURISH_END));
       rz =  f * tapRz;
       rx = SWING_X * (1 - f);
       px =  f * 0.22;
     } else if (t <= TAP_END) {
-      /* Snap back: rebound to rest */
       const tapRz = isMobile ? 0.10 : 0.32;
       const f = smoothstep((t - TAP_PEAK) / (TAP_END - TAP_PEAK));
       rz = (1 - f) * tapRz;
       rx = 0;
       px = (1 - f) * 0.22;
-    } else {
-      /* Settle: brief pause before next oval begins */
-      rz = 0;
     }
 
     pivotGroup.rotation.z = rz;
     pivotGroup.rotation.x = rx;
-    pivotGroup.position.x = px;
-    pivotGroup.position.y = -1.5 + Math.sin(elapsed * 1.1) * 0.18;
+
+    /* Position — home + tap nudge normally, overridden by drag / spring */
+    const homeX = wandHomeX + px;
+    const homeY = WAND_HOME_Y + Math.sin(elapsed * 1.1) * 0.18;
+
+    if (isDragging) {
+      pivotGroup.position.x = dragX;
+      pivotGroup.position.y = dragY;
+    } else if (isSpringBack) {
+      const dxs = homeX - springX;
+      const dys = homeY - springY;
+      springVelX += dxs * SPRING_K;
+      springVelY += dys * SPRING_K;
+      springVelX *= SPRING_DAMPING;
+      springVelY *= SPRING_DAMPING;
+      springX    += springVelX;
+      springY    += springVelY;
+      pivotGroup.position.x = springX;
+      pivotGroup.position.y = springY;
+      if (Math.abs(dxs) < SPRING_EPS && Math.abs(dys) < SPRING_EPS &&
+          Math.abs(springVelX) < SPRING_EPS && Math.abs(springVelY) < SPRING_EPS) {
+        isSpringBack = false;
+      }
+    } else {
+      pivotGroup.position.x = homeX;
+      pivotGroup.position.y = homeY;
+    }
 
     /* Star spins on its own local axis */
     starMesh.rotation.z += dt * 1.0;
@@ -249,8 +347,8 @@ function initWand3D(container) {
     const pulse = 1.0 + 0.28 * Math.sin(elapsed * 3.8);
     glow.scale.set(pulse, pulse, 1);
 
-    /* Flash and glow during the snap tap */
-    const isTapping = t > FLOURISH_END && t < TAP_END;
+    /* Flash and glow during the snap tap (suppressed while dragging) */
+    const isTapping = !isDragging && t > FLOURISH_END && t < TAP_END;
     if (isTapping) {
       const tapProgress = t < TAP_PEAK
         ? smoothstep((t - FLOURISH_END) / (TAP_PEAK - FLOURISH_END))
@@ -263,8 +361,8 @@ function initWand3D(container) {
       starMat.emissiveIntensity += (0.38 - starMat.emissiveIntensity) * 0.04;
     }
 
-    /* Particle burst once per cycle at the tap peak */
-    if (Math.abs(t - TAP_PEAK) < 0.018 && cyc !== lastTapCycle) {
+    /* Particle burst once per cycle at the tap peak (suppressed while dragging) */
+    if (!isDragging && Math.abs(t - TAP_PEAK) < 0.018 && cyc !== lastTapCycle) {
       lastTapCycle = cyc;
       spawnParticles(tipWorldPos.clone());
       window.dispatchEvent(new CustomEvent('wand-tap'));
@@ -293,14 +391,17 @@ function initWand3D(container) {
 
   function onResize() {
     const mobile = window.innerWidth < 992;
+    if (mobile && isDragging) {
+      isDragging = false;
+      if (heroSection) heroSection.classList.remove('is-dragging');
+    }
     isMobile = mobile;
-    const w = mobile
-      ? Math.min(container.offsetWidth || 300, 300)
-      : Math.min(container.offsetWidth || W, W);
-    const h = mobile ? Math.round(w * 2.2) : Math.round(w * H / W);
+    const w = (heroSection ? heroSection.offsetWidth  : 0) || window.innerWidth;
+    const h = (heroSection ? heroSection.offsetHeight : 0) || window.innerHeight;
     renderer.setSize(w, h);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
+    wandHomeX = computeWandHomeX();
   }
   window.addEventListener('resize', onResize);
   onResize();
