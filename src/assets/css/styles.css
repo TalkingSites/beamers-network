@@ -123,12 +123,132 @@ p strong, li strong { color: inherit; font-weight: 600; text-decoration: underli
   transition: background 0.3s ease, border-color 0.3s ease;
 }
 
+.navbar-brand {
+  position: relative;
+}
+
+/* sparkle: top-right end */
+.navbar-brand::before {
+  content: '✦';
+  position: absolute;
+  font-size: 0.44rem;
+  top: 0.1em;
+  right: -0.2em;
+  color: var(--gold);
+  -webkit-text-fill-color: var(--gold);
+  pointer-events: none;
+  animation: nsp-c 3.3s ease-in-out infinite 1.4s;
+}
+
+/* sparkle: bottom loosely mid */
+.navbar-brand::after {
+  content: '✦';
+  position: absolute;
+  font-size: 0.3rem;
+  bottom: 0.2em;
+  left: 52%;
+  color: var(--gold);
+  -webkit-text-fill-color: var(--gold);
+  pointer-events: none;
+  animation: nsp-d 5.1s ease-in-out infinite 0.7s;
+}
+
 .navbar-brand-name {
   font-family: 'Cinzel', serif;
   font-weight: 600;
-  font-size: 1.15rem;
+  font-size: 1.28rem;
   letter-spacing: 0.04em;
-  color: var(--text-primary);
+  background: linear-gradient(160deg, #FFFFFF 35%, #F5C842 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 5px rgba(245, 200, 66, 0.85), 0 0 16px rgba(245, 200, 66, 0.5), 0 0 36px rgba(245, 200, 66, 0.22);
+  position: relative;
+}
+
+/* sparkle: top above "Beamers" */
+.navbar-brand-name::before {
+  content: '✦';
+  position: absolute;
+  font-size: 0.4em;
+  top: -0.52em;
+  left: 2.8em;
+  color: var(--gold);
+  -webkit-text-fill-color: var(--gold);
+  pointer-events: none;
+  animation: nsp-a 2.8s ease-in-out infinite 0.3s;
+}
+
+/* sparkle: bottom-right past end */
+.navbar-brand-name::after {
+  content: '✦';
+  position: absolute;
+  font-size: 0.25em;
+  bottom: -0.1em;
+  right: -1.5em;
+  color: var(--gold);
+  -webkit-text-fill-color: var(--gold);
+  pointer-events: none;
+  animation: nsp-b 4.6s ease-in-out infinite 2.1s;
+}
+
+/* extra sparkle slot via inner span */
+.brand-sparkles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* sparkle: top above "Network" */
+.brand-sparkles::before {
+  content: '✦';
+  position: absolute;
+  font-size: 0.32em;
+  top: -0.6em;
+  left: 69%;
+  color: var(--gold);
+  -webkit-text-fill-color: var(--gold);
+  pointer-events: none;
+  animation: nsp-e 3.9s ease-in-out infinite 3.2s;
+}
+
+/* sparkle: bottom below early "Beamers" */
+.brand-sparkles::after {
+  content: '✦';
+  position: absolute;
+  font-size: 0.22em;
+  bottom: -0.15em;
+  left: 19%;
+  color: var(--gold);
+  -webkit-text-fill-color: var(--gold);
+  pointer-events: none;
+  animation: nsp-f 2.4s ease-in-out infinite 1.7s;
+}
+
+@keyframes nsp-a {
+  0%, 100% { opacity: 0; transform: scale(0.3) rotate(-20deg); }
+  40%, 58% { opacity: 0.95; transform: scale(1) rotate(14deg); }
+}
+@keyframes nsp-b {
+  0%, 100% { opacity: 0; transform: scale(0.2) rotate(10deg); }
+  45%, 62% { opacity: 0.8; transform: scale(0.85) rotate(-9deg); }
+}
+@keyframes nsp-c {
+  0%, 18%, 100% { opacity: 0; transform: scale(0.4) rotate(25deg); }
+  54%, 70% { opacity: 1; transform: scale(1.1) rotate(-6deg); }
+}
+@keyframes nsp-d {
+  0%, 100% { opacity: 0; transform: scale(0.5) rotate(-14deg); }
+  30%, 48% { opacity: 0.72; transform: scale(0.88) rotate(20deg); }
+}
+@keyframes nsp-e {
+  0%, 100% { opacity: 0; transform: scale(0.3) rotate(30deg); }
+  44%, 64% { opacity: 0.9; transform: scale(1) rotate(-13deg); }
+}
+@keyframes nsp-f {
+  0%, 100% { opacity: 0; transform: scale(0.25) rotate(-6deg); }
+  50%, 63% { opacity: 0.82; transform: scale(0.8) rotate(17deg); }
 }
 
 #navbar-main .nav-link {
