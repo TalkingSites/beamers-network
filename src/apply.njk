@@ -67,9 +67,61 @@ permalink: "/apply/"
 
     <div class="standards-cta text-center">
       <p class="standards-cta-label">Does this resonate?</p>
-      <a href="/eoi/" class="btn-gold">Submit an Expression of Interest</a>
+      <a href="#apply-form" class="btn-gold">Apply below</a>
     </div>
   </div>
 </section>
 
+<!-- ===================== APPLY FORM ===================== -->
+<section class="apply-section" id="apply-form">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="section-headline">Tell us about yourself.</h2>
+      <p class="section-sub mx-auto">
+        We review every application personally during the founding period.
+      </p>
+    </div>
 
+    <div class="envelope-form-wrap">
+      <img src="/assets/images/envelope.svg" class="envelope-img" alt="" aria-hidden="true">
+      <div class="envelope-form-card">
+      <form name="wizard-apply-main" netlify method="POST" action="/thanks/">
+        <input type="hidden" name="form-name" value="wizard-apply-main" />
+
+        <label for="apply-name">Your name</label>
+        <input type="text" id="apply-name" name="name" placeholder="Ada Lovelace" required/>
+
+        <label for="apply-email">Email address</label>
+        <input type="email" id="apply-email" name="email" placeholder="you@example.com" required/>
+
+        <label for="apply-domain">Your personal domain <span style="font-weight:400; opacity:0.6;">(optional)</span></label>
+        <input type="text" id="apply-domain" name="domain" placeholder="yourname.com"/>
+
+        <label for="apply-connected">How connected are you to your community?</label>
+        <select id="apply-connected" name="connected">
+          <option value="" disabled selected>Choose the closest fit</option>
+          <option value="very">Very. I'm embedded in multiple communities</option>
+          <option value="somewhat">Somewhat. I'm active in a couple</option>
+          <option value="a-little">A little. I know people but want to be more involved</option>
+          <option value="not-yet">Not yet, but I want to change that</option>
+        </select>
+
+        <label for="apply-why">What kind of help do you already give people?</label>
+        <textarea id="apply-why" name="why" placeholder="Briefly describe the sort of problems you find yourself solving for friends, colleagues, or clients..."></textarea>
+
+        <label for="apply-city">City or region</label>
+        <input type="text" id="apply-city" name="city" placeholder="Sydney, Melbourne, remote..."/>
+
+        <button type="submit" class="btn-gold w-100" style="border:none; cursor:pointer;">
+          Submit application
+        </button>
+
+        <p class="apply-note" style="font-size:0.8rem; text-align:center; margin-top:1rem; margin-bottom:0;">
+          We will get back to you via email. No spam, ever.
+        </p>
+
+      </form>
+      </div>{# /envelope-form-card #}
+    </div>{# /envelope-form-wrap #}
+  </div>{# /container #}
+</section>
