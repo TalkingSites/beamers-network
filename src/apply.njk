@@ -11,7 +11,7 @@ permalink: "/apply/"
 </div>
 
 <!-- ===================== BEAMERS STANDARD ===================== -->
-<section class="standards-section">
+<section class="standards-section" id="apply-step-standards">
   <div class="container">
     <div class="text-center mb-5">
       <h2 class="section-headline">The Beamers Standard</h2>
@@ -66,14 +66,14 @@ permalink: "/apply/"
     </div>
 
     <div class="standards-cta text-center">
-      <p class="standards-cta-label">Does this resonate?</p>
-      <a href="#apply-form" class="btn-gold">Apply below</a>
+      <a href="/eoi/" class="btn-gold">Submit Expression of Interest</a>
+      <p class="standards-cta-label">Ready to join? <button type="button" id="apply-cta-btn" class="apply-step-link">Apply now</button></p>
     </div>
   </div>
 </section>
 
 <!-- ===================== APPLY FORM ===================== -->
-<section class="apply-section" id="apply-form">
+<section class="apply-section" id="apply-form" hidden>
   <div class="container">
     <div class="text-center mb-5">
       <h2 class="section-headline">Tell us about yourself.</h2>
@@ -91,31 +91,32 @@ permalink: "/apply/"
       <form name="wizard-apply-main" netlify method="POST" action="/thanks/">
         <input type="hidden" name="form-name" value="wizard-apply-main" />
 
-        <label for="apply-name">Your name</label>
+        <label for="apply-name">Your name *</label>
         <input type="text" id="apply-name" name="name" placeholder="Ada Lovelace" required/>
 
-        <label for="apply-email">Email address</label>
+        <label for="apply-email">Email address *</label>
         <input type="email" id="apply-email" name="email" placeholder="you@example.com" required/>
 
-        <label for="apply-domain">Your personal domain <span style="font-weight:400; opacity:0.6;">(optional)</span></label>
+        <label for="apply-domain">Your personal domain</label>
         <input type="text" id="apply-domain" name="domain" placeholder="yourname.com"/>
 
-        <label for="apply-connected">How connected are you to your community?</label>
-        <select id="apply-connected" name="connected">
+        <label for="apply-connected">How connected are you to your community? *</label>
+        <select id="apply-connected" name="connected" required>
           <option value="" disabled selected>Choose the closest fit</option>
           <option value="very">Very. I'm embedded in multiple communities</option>
           <option value="somewhat">Somewhat. I'm active in a couple</option>
           <option value="a-little">A little. I know people but want to be more involved</option>
           <option value="not-yet">Not yet, but I want to change that</option>
+          <option value="idontcare">I don't care about community, I just want clients</option>
         </select>
 
-        <label for="apply-why">What kind of help do you already give people?</label>
-        <textarea id="apply-why" name="why" placeholder="Briefly describe the sort of problems you find yourself solving for friends, colleagues, or clients..."></textarea>
+        <label for="apply-why">What kind of help do you already give people? *</label>
+        <textarea id="apply-why" name="why" placeholder="Briefly describe the sort of problems you find yourself solving for friends, colleagues, or clients..." required></textarea>
 
-        <label for="apply-city">City or region</label>
-        <input type="text" id="apply-city" name="city" placeholder="Sydney, Melbourne, remote..."/>
+        <label for="apply-city">City or region *</label>
+        <input type="text" id="apply-city" name="city" placeholder="Sydney, Melbourne, remote..." required/>
 
-        <button type="submit" class="btn-gold" style="border:none; cursor:pointer; display:block; margin:0 auto;">
+        <button type="submit" class="btn-gold">
           Submit application
         </button>
 
@@ -125,3 +126,26 @@ permalink: "/apply/"
     </div>{# /envelope-form-wrap #}
   </div>{# /container #}
 </section>
+
+<script>
+(function () {
+  var btn   = document.getElementById('apply-cta-btn');
+  var step1 = document.getElementById('apply-step-standards');
+  var step2 = document.getElementById('apply-form');
+  if (!btn || !step1 || !step2) return;
+
+  btn.addEventListener('click', function () {
+    step1.classList.add('is-exiting');
+    setTimeout(function () {
+      step1.hidden = true;
+      step2.removeAttribute('hidden');
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          step2.classList.add('is-visible');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+    }, 450);
+  });
+}());
+</script>
