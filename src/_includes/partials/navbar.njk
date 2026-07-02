@@ -10,7 +10,7 @@
       <div class="collapse navbar-collapse" id="nav">
         <ul class="navbar-nav d-flex flex-row align-items-center gap-1">
           {% for item in navbar %}
-            {% if item.title != "Apply" %}
+            {% if item.title != "Apply" and item.title != "Login" %}
             <li class="nav-item">
               <a class="nav-link{% if page.url == item.href %} active{% endif %}" href="{{ item.href }}">
                 {{ item.title }}
@@ -21,6 +21,9 @@
         </ul>
       </div>
 
+      <a href="https://wish.beamers.network" class="nav-link d-none d-sm-inline-flex">
+        Login
+      </a>
       <a href="/apply/" class="btn-apply-nav d-none d-sm-inline-flex">
         Apply
       </a>
