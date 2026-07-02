@@ -13,7 +13,7 @@
       <div class="col-auto d-flex gap-4 flex-wrap justify-content-end">
         {% for item in navbar %}
           {% if item.footer %}
-          <a href="{{ item.href }}" class="nav-link">{{ item.title }}</a>
+          <a href="{{ item.href }}" class="nav-link"{% if item.external %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ item.title }}{% if item.external %} <i class="bi bi-box-arrow-up-right" style="font-size:0.72rem;"></i>{% endif %}</a>
           {% endif %}
         {% endfor %}
       </div>

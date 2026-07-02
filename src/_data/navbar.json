@@ -1,5 +1,5 @@
 [
   { "title": "Home", "href": "/", "footer": true },
-  { "title": "Login", "href": "https://wish.beamers.network", "footer": true },
+  { "title": "Login", "href": "https://wish.beamers.network", "footer": true, "external": true },
   { "title": "Apply", "href": "/apply/", "footer": true }
 ]
